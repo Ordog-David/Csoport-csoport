@@ -33,6 +33,13 @@ canvas.addEventListener('mousedown', function(e) {
     getCursorPosition(kanvas, e)
     if (cursorX > x && cursorY > y) {console.log("Siker")}
 })
+function distance(x1,y1,x2,y2) {
+    return Math.sqrt((Math.abs(x1 - x2) * Math.abs(x1 - x2) + (Math.abs(y1 - y2) * Math.abs(y1 - y2))))
+}
+function addVector(vector1,vector2) {
+    vector1.xEnd += vector2.xEnd - vector2.xStart
+    vector1.yEnd += vector2.yEnd - vector2.yStart
+}
 
 function drawImage(image, x, y, scale, rotation){
     context.setTransform(scale, 0, 0, scale, x, -y+canvasHeight);
