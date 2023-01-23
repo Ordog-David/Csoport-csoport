@@ -19,12 +19,28 @@ let images = [0,0,0]
 images[0] = document.getElementById("img1")
 images[1] = document.getElementById("img2")
 images[2] = document.getElementById("img3")
+
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    let cursorX = event.clientX - rect.left
+    let cursorY = event.clientY - rect.top
+    cursorY = -(cursorY-canvasHeight)
+    return (cursorX, cursorY)
+    //console.log("x: " + cursorX + " y: " + cursorY)
+}
+const kanvas = document.querySelector('canvas')
+canvas.addEventListener('mousedown', function(e) {
+    getCursorPosition(kanvas, e)
+    if (cursorX > x && cursorY > y) {console.log("Siker")}
+})
+
 function drawImage(image, x, y, scale, rotation){
     context.setTransform(scale, 0, 0, scale, x, -y+canvasHeight);
     context.rotate(rotation);
     context.drawImage(image, -image.width / 2, -image.height / 2);
     context.resetTransform()
 }
+
 function drawRect(x,y,width,height,color) {
     context.setTransform(1, 0, 0, 1, x, -y+canvasHeight)
     context.fillStyle = color
