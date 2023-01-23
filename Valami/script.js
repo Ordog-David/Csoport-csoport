@@ -19,6 +19,14 @@ let images = [0,0,0]
 images[0] = document.getElementById("img1")
 images[1] = document.getElementById("img2")
 images[2] = document.getElementById("img3")
+class vector {
+    constructor(x1,y1,x2,y2) {
+        this.xStart = x1
+        this.yStart = y1
+        this.xEnd = x2
+        this.yEnd = y2
+    }
+}
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect()
