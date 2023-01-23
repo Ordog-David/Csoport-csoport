@@ -2,7 +2,6 @@ let canvas = document.getElementById("canvas")
 canvasWidth = canvas.width
 canvasHeight = canvas.height
 let context = canvas.getContext("2d")
-let img = document.getElementById("sus")
 let UpDown = false
 let DownDown = false
 let LeftDown = false
@@ -16,6 +15,10 @@ let xVelocity = 0
 let yVelocity = 0
 let acceleration = 1
 let deceleration = 0.6
+let images = [0,0,0]
+images[0] = document.getElementById("img1")
+images[1] = document.getElementById("img2")
+images[2] = document.getElementById("img3")
 function drawImage(image, x, y, scale, rotation){
     context.setTransform(scale, 0, 0, scale, x, -y+canvasHeight);
     context.rotate(rotation);
@@ -63,7 +66,7 @@ function start() {
         drawRect(canvasWidth/2,canvasHeight/2,canvasWidth,canvasHeight,"aqua")
         while (i < canvasHeight+32) {
             while (ii < canvasWidth+32) {
-                drawImage(img,ii,i,2,0)
+                drawImage(images[Math.floor(Math.random()*3)],ii,i,2,0)
                 ii += 32
             }
             ii = 16
@@ -109,8 +112,16 @@ function start() {
             if (yVelocity >= 0) {yVelocity = maxVelocity}
             else {yVelocity = -maxVelocity}
         }
+        if (Math.abs(yVelocity) >= maxVelocity+0.01 || Math.abs(xVelocity) >= maxVelocity+0.01) {
+           temp1 = xVelocity
+           temp2 = yVelocity
+           if (xVelocity >= 0) {xVelocity = (Math.abs(temp1)+Math.abs(temp2))/2}
+           else {xVelocity = -(Math.abs(temp1)+Math.abs(temp2)/2)}
+           if (yVelocity >= 0) {yVelocity = (Math.abs(temp1)+Math.abs(temp2))/2}
+           else {yVelocity = -(Math.abs(temp1)+Math.abs(temp2)/2)}
+        }
         x += xVelocity
         y += yVelocity
-        drawRect(x,y,50,50,"red")
+        drawRect(x,y,40,40,"red")
     },20)
 }
