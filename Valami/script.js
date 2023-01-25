@@ -16,6 +16,10 @@ let yVelocity = 0
 let acceleration = 1
 let deceleration = 0.6
 let images = [0,0,0]
+var cursorX = 0
+var cursorY = 0
+let hit_direction = 0
+
 images[0] = document.getElementById("img1")
 images[1] = document.getElementById("img2")
 images[2] = document.getElementById("img3")
@@ -28,19 +32,26 @@ class vector {
     }
 }
 
-function getCursorPosition(canvas, event) {
+function clicklocater(canvas, event) {
     const rect = canvas.getBoundingClientRect()
-    let cursorX = event.clientX - rect.left
-    let cursorY = event.clientY - rect.top
+    cursorX = event.clientX - rect.left
+    cursorY = event.clientY - rect.top
     cursorY = -(cursorY-canvasHeight)
-    return (cursorX, cursorY)
-    //console.log("x: " + cursorX + " y: " + cursorY)
+    //console.log("player:" + x + y + "x: " + cursorX + " y: " + cursorY)
 }
 const kanvas = document.querySelector('canvas')
 canvas.addEventListener('mousedown', function(e) {
-    getCursorPosition(kanvas, e)
-    if (cursorX > x && cursorY > y) {console.log("Siker")}
+    clicklocater(kanvas, e)
+    switch (true) {
+        case cursorX > x && cursorY > y: hit_direction = 1; break
+        case cursorX > x && cursorY < y: hit_direction = 2; break
+        case cursorX < x && cursorY > y: hit_direction = 4; break
+        case cursorX < x && cursorY < y: hit_direction = 3; break 
+    }
+ 
+    (console.log(hit_direction))
 })
+
 function distance(x1,y1,x2,y2) {
     return Math.sqrt((Math.abs(x1 - x2) * Math.abs(x1 - x2) + (Math.abs(y1 - y2) * Math.abs(y1 - y2))))
 }
